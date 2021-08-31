@@ -5,6 +5,8 @@ Assessment for AS91896 NCEA Level 2 Computer Science Internal
 ### v 0.1
 - [ ] Create Variables of
 	Customer Full Name, Receipt Number, The item hired, Quanity of item hired
+- [ ] Create a basic window
+- [ ] Create all files for modular code
 ### v 0.2
 - [ ] Create Input Field and button to submit text from the user
 ### v 0.5
