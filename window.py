@@ -12,8 +12,10 @@ class Root(object):
         self.master.title("Julie's Party Tracker - AS91896")
         self.frame = tk.Frame(self.master)
         self.frame.pack()
-    def change_state(self, states, state_to):
+    def change_state(self, states, state_to, frame=None):
         self.frame.destroy()
+        if frame is not None:
+            frame.destroy()
         self.frame = tk.Frame(self.master)
         self.frame.pack()
         states[state_to](self.frame)
