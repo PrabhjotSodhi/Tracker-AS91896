@@ -8,12 +8,16 @@ Assessment for AS91896 NCEA Level 2 Computer Science Internal
 - [X] Create a basic window
 - [X] Create all files for modular code
 ### v 0.2
-- [ ] Create Input Field and button to submit text from the user
+- [X] Create Input Field and button to submit text from the user
+- [X] On submit data should be formatted and placed into a table
 ### v 0.5
-- [ ] On submit data should be formatted and placed into a table
-- [ ] Data should be stored in either lists, arrays or dictionaries
-- [ ] Create two buttons of return 1 item and return all items.
+- [X] Data should be stored in either lists, arrays or dictionaries
+- [X] Validate the input from the user and only enter data if the requirements are met
 ### v 0.9
-- [ ] Upon completion of the program test and create boundary rules for data
+- [ ] Save the data from treeview into a file
+- [ ] Allow for importing and exporting data
+- [ ] Create two buttons of return 1 item and return all items.
 ### v 1.0
-- [ ] BONUS: Save the data in a file and read and write from it
+- [ ] Final Code cleanup and final bug fixes nearing completion
+- [ ] Submit Code for assignment
+
