@@ -18,6 +18,6 @@ Assessment for AS91896 NCEA Level 2 Computer Science Internal
 - [X] Allow for importing and exporting data
 - [X] Create button for returning items from table
 ### v 1.0
-- [ ] Final Code cleanup and final bug fixes nearing completion
-- [ ] Submit Code for assignment
+- [x] Final Code cleanup and final bug fixes nearing completion
+- [x] Submit Code for assignment
 

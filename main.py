@@ -9,6 +9,10 @@ from window import Root
 import csv
 
 def validate_input(tree, data, error_labels):
+    """
+    Handles all input from user into treeview,
+    also saves treeview into data.csv file.
+    """
     validation = {'fail_0': False, 'fail_1': False, 'fail_2': False, 'fail_3': False}
     # Customer Name Validation
     try:
@@ -45,16 +49,23 @@ def validate_input(tree, data, error_labels):
     except ValueError:
         error_labels[3].config(text="Please Enter Valid Quantity")
         validation['fail_3'] = True
+    # Conditions met then save to file and import into tree
     if all(value == False for value in validation.values()):
         tree.insert(parent='', index='end', text='', values=(data[0].get(),data[1].get(),data[2].get(),data[3].get()))
         add_to_file(tree)
 
 def create_file():
+    """
+    Creates file if it already exists
+    then override it and changes state.
+    """
     open("data.csv", "w").close()
     window.change_state(states, 'APP')
 
-
 def add_to_file(tree):
+    """
+    Gets items in tree and appends to csv file
+    """
     with open("data.csv", "w", newline='') as data_file:
         write_file = csv.writer(data_file, delimiter=",")
         for row_id in tree.get_children():
@@ -63,6 +74,10 @@ def add_to_file(tree):
             write_file.writerow(row)
 
 def load_file():
+    """
+    Handles loading data.csv file and
+    inputing into tree
+    """
     window.change_state(states, 'APP')
     with open("data.csv") as data_file:
         read_file = csv.reader(data_file, delimiter=",")
@@ -71,6 +86,10 @@ def load_file():
             tree.insert("", 'end', values=row)
 
 def menu(frame):
+    """
+    State Menu, menu screen for user
+    to either create new or load data
+    """
     root.geometry('300x400')
     root.title("Julie's Party Tracker - AS91896")
     tk.Label(frame, text="Julie's Party Tracker").pack()
@@ -78,6 +97,10 @@ def menu(frame):
     tk.Button(frame, text='Load Party Tracker from file', command=lambda: load_file()).pack()
 
 def app(frame):
+    """
+    State app, actual application and most
+    used state from the user
+    """
     global tree
     root.geometry('800x600')
     root.title("Julie's Party Tracker - Application")
@@ -115,7 +138,7 @@ def app(frame):
     tk.Button(frame, width=20, text='Submit Data', command=lambda: validate_input(tree, data, error_labels)).grid(column=4, row=1)
 
 	# Create the Treview
-    tree_frame = Frame(frame, background='green')
+    tree_frame = Frame(frame)
     tree_scroll = Scrollbar(tree_frame)
     tree = ttk.Treeview(tree_frame, yscrollcommand=tree_scroll.set)
 	# Handle all columns
@@ -137,17 +160,23 @@ def app(frame):
     tree_scroll.grid(row=0, column=1, sticky="nesw")
     tree.grid(row=0, sticky="ew")
 
+    # Screen min width size of tree
     frame.update()
     root.minsize(frame.winfo_width(), frame.winfo_height())
 
-    modify_tree_frame = Frame(frame, background='red')
+    # Buttons for modifying tree and returning to menu
+    modify_tree_frame = Frame(frame)
     modify_tree_frame.grid()
     tk.Button(modify_tree_frame, width=20, text='Return Item', command=lambda: tree.delete(tree.selection()[0])).pack()
     tk.Button(modify_tree_frame, width=20, text='Return to Menu', command=lambda: window.change_state(states, 'MENU', tree_frame)).pack()
 
 if __name__ == '__main__':
+    """
+    Checks to make sure user is running program
+    from this file
+    """
     root = Tk()
-    states = {"MENU": menu, "APP": app}
+    states = {"MENU": menu, "APP": app} # State Dictionary
     window = Root(root)
     window.change_state(states, 'MENU')
     root.mainloop()
