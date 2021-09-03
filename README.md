@@ -14,9 +14,9 @@ Assessment for AS91896 NCEA Level 2 Computer Science Internal
 - [X] Data should be stored in either lists, arrays or dictionaries
 - [X] Validate the input from the user and only enter data if the requirements are met
 ### v 0.9
-- [ ] Save the data from treeview into a file
-- [ ] Allow for importing and exporting data
-- [ ] Create two buttons of return 1 item and return all items.
+- [X] Save the data from treeview into a file
+- [X] Allow for importing and exporting data
+- [X] Create button for returning items from table
 ### v 1.0
 - [ ] Final Code cleanup and final bug fixes nearing completion
 - [ ] Submit Code for assignment

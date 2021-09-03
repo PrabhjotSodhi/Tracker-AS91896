@@ -6,6 +6,7 @@ from tkinter import *
 import tkinter as tk
 from tkinter import ttk
 from window import Root
+import csv
 
 def validate_input(tree, data, error_labels):
     validation = {'fail_0': False, 'fail_1': False, 'fail_2': False, 'fail_3': False}
@@ -46,14 +47,38 @@ def validate_input(tree, data, error_labels):
         validation['fail_3'] = True
     if all(value == False for value in validation.values()):
         tree.insert(parent='', index='end', text='', values=(data[0].get(),data[1].get(),data[2].get(),data[3].get()))
+        add_to_file(tree)
+
+def create_file():
+    open("data.csv", "w").close()
+    window.change_state(states, 'APP')
+
+
+def add_to_file(tree):
+    with open("data.csv", "w", newline='') as data_file:
+        write_file = csv.writer(data_file, delimiter=",")
+        for row_id in tree.get_children():
+            row = tree.item(row_id)['values']
+            print('save row:',row)
+            write_file.writerow(row)
+
+def load_file():
+    window.change_state(states, 'APP')
+    with open("data.csv") as data_file:
+        read_file = csv.reader(data_file, delimiter=",")
+        for row in read_file:
+            print('Load row:', row)
+            tree.insert("", 'end', values=row)
 
 def menu(frame):
     root.geometry('300x400')
     root.title("Julie's Party Tracker - AS91896")
     tk.Label(frame, text="Julie's Party Tracker").pack()
-    tk.Button(frame, text='Create New Party Tracker', command=lambda: window.change_state(states, 'APP')).pack()
-    tk.Button(frame, text='Load Party Tracker from file', command=lambda: window.change_state(states, 'APP')).pack()
+    tk.Button(frame, text='Create New Party Tracker', command=lambda: create_file()).pack()
+    tk.Button(frame, text='Load Party Tracker from file', command=lambda: load_file()).pack()
+
 def app(frame):
+    global tree
     root.geometry('800x600')
     root.title("Julie's Party Tracker - Application")
 	# Customer Input Box
@@ -106,8 +131,6 @@ def app(frame):
     tree.heading("Receipt", text="ID", anchor=W)
     tree.heading("Item Name", text="Item Name", anchor=W)
     tree.heading("Item Qty", text="Item Qty", anchor=W)
-	# Insert Data
-    tree.insert(parent='', index='end', iid=0, text='', values=("John", 256, "Table", 256))
 	# Show Treview
     tree_scroll.configure(command=tree.yview)
     tree_frame.grid(pady=10, padx=10, columnspan=6, column=0, row=3)
@@ -119,6 +142,7 @@ def app(frame):
 
     modify_tree_frame = Frame(frame, background='red')
     modify_tree_frame.grid()
+    tk.Button(modify_tree_frame, width=20, text='Return Item', command=lambda: tree.delete(tree.selection()[0])).pack()
     tk.Button(modify_tree_frame, width=20, text='Return to Menu', command=lambda: window.change_state(states, 'MENU', tree_frame)).pack()
 
 if __name__ == '__main__':
